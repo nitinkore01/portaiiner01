@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   pythondemo:
-    image: python:3.12
+    build:
+      context: .
     container_name: pythondemo
     restart: always
     ports:
@@ -10,12 +11,6 @@ services:
     volumes:
       - data:/app/data
     working_dir: /app
-    command: >
-      bash -c '
-        pip install --upgrade pip &&
-        pip install uv &&
-        cd /app/data &&
-        [ -d pythondemo ] || uv venv pythondemo &&
-        cd pythondemo &&
-        if [ ! -f pyproject.toml ]; then
-          printf "[project]\nname = \"agents\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \">=3.12\"\ndependencies = [\"anthropic>=0.49.0\", \"autogen-ag]()
+
+volumes:
+  data:
